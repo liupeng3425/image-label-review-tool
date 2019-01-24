@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>iMed online data processing system</title>
+</head>
+<body onkeydown="fun(event)">
+{% load static %}
+<table>
+    <tr>
+        <td>
+            <img width="100%" src="{% static kaggle.left_image %}"/>
+        </td>
+
+    </tr>
+    <tr>
+        <td><label>{{ kaggle.left_filename }}</label></td>
+    </tr>
+</table>
+<form action="{% url 'label:commitreview' kaggle.left_filename %}" method="post">
+    {% csrf_token %}
+    <button type="submit" name="right">Left</button>
+    <button type="submit" name="wrong">Right</button>
+    <button type="submit" name="unknown">Unknown</button>
+</form>
+<p>{{ progress }}</p>
+</body>
+<script type="text/javascript">
+    var KEY = {
+        LEFT: 37,
+        RIGHT: 39,
+        DOWN: 40
+    };
+    var right = document.getElementsByName("right")[0];
+    var wrong = document.getElementsByName("wrong")[0];
+    var unknown = document.getElementsByName("unknown")[0];
+
+    function fun(e) {
+        switch (e.which) {
+            case KEY.LEFT:
+                right.click();
+                break;
+            case KEY.RIGHT:
+                wrong.click();
+                break;
+            case KEY.DOWN:
+                unknown.click();
+                break;
+        }
+    }
+
+</script>
+</html>
